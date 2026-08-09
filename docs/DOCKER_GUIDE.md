@@ -120,8 +120,9 @@ npm run docker:down   # or: docker compose down
 
 ---
 
-## 🐘 Alternative Database Setup
+## 🐘 Alternative Database & Production Setup
 
-Looking to use PostgreSQL and pgAdmin 4 instead of MySQL and phpMyAdmin? Check out the dedicated guide:
-👉 **[docs/POSTGRESQL_ALTERNATIVE.md](POSTGRESQL_ALTERNATIVE.md)**
+- PostgreSQL & pgAdmin 4 Alternative: 👉 **[docs/POSTGRESQL_ALTERNATIVE.md](POSTGRESQL_ALTERNATIVE.md)**
+- Nginx Reverse Proxy Setup Guide: 👉 **[docs/NGINX_REVERSE_PROXY_GUIDE.md](NGINX_REVERSE_PROXY_GUIDE.md)**
+
 
