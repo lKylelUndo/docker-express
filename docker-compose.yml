@@ -6,11 +6,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: builder # Uses the builder stage (includes devDependencies like tsx)
     container_name: express_app
     ports:
       - "8000:8000" # Maps port 8000 on host to 8000 in container
     env_file:
       - .env
+    # Enable live-reloading in development mode
+    command: npm run dev
+    volumes:
+      - ./src:/app/src
     depends_on:
       db:
         condition: service_healthy # Wait until MySQL is ready and passing health check
