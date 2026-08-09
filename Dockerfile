@@ -20,16 +20,19 @@ RUN npm run build
 FROM base AS runner
 
 WORKDIR /app
+ENV NODE_ENV=production
 
 # Copy only the built files from the builder stage
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
-
-# Copy node_modules from builder stage
-COPY --from=builder /app/node_modules ./node_modules
+# Install only production dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev
 
 # Expose the port of this container
 EXPOSE 8000
 
-# Start the server using the --watch flag for development
+# Run as non-root user for security
+USER node
+
+# Start the server
 CMD ["npm", "start"]

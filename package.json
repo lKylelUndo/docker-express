@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsdown src/server.ts --format esm --clean --minify",
     "dev": "tsx --watch src/server.ts",
-    "start": "node dist/server.mjs"
+    "start": "node dist/server.mjs",
+    "setup": "powershell -ExecutionPolicy Bypass -File ./setup.ps1",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
   },
   "keywords": [],
   "author": "",
