@@ -9,14 +9,8 @@ services:
     container_name: express_app
     ports:
       - "8000:8000" # Maps port 8000 on host to 8000 in container
-    environment:
-      - NODE_ENV=development
-      - PORT=8000
-      - DB_HOST=db             # Connects to MySQL service container name 'db'
-      - DB_USER=root
-      - DB_PASSWORD=root_password
-      - DB_NAME=express_db
-      - DB_PORT=3306
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy # Wait until MySQL is ready and passing health check
@@ -26,13 +20,13 @@ services:
   # 2. MySQL Database Service
   # ==========================================
   db:
-    image: mysql:8.0 # Automatically downloads official MySQL 8.0 image from Docker Hub
+    image: mysql:8.4 # Automatically downloads official MySQL 8.4 image from Docker Hub
     container_name: mysql_db
     ports:
       - "3306:3306" # Maps MySQL default port to host
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: express_db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root_password}
+      MYSQL_DATABASE: ${DB_NAME:-express_db}
     volumes:
       - db_data:/var/lib/mysql # Persists MySQL database data locally
     restart: always
@@ -47,15 +41,13 @@ services:
   # 3. phpMyAdmin UI Service
   # ==========================================
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin # Automatically downloads official phpMyAdmin image
+    image: phpmyadmin:5 # Automatically downloads version 5 phpMyAdmin image
     container_name: phpmyadmin_ui
     ports:
       - "8080:80" # Access phpMyAdmin in your browser at http://localhost:8080
     environment:
-      PMA_HOST: db # Tells phpMyAdmin to connect to the MySQL 'db' container
+      PMA_HOST: db # Pre-selects the 'db' server, but requires you to enter username & password manually
       PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: root_password
     depends_on:
       - db
     restart: always
