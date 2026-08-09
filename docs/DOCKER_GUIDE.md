@@ -117,3 +117,11 @@ npm run docker:down   # or: docker compose down
 | **Express App API** | `http://localhost:8000` | N/A |
 | **Database Connection Test** | `http://localhost:8000/db-test` | N/A |
 | **phpMyAdmin Web UI** | `http://localhost:8080` | **Username**: `root`<br>**Password**: `root_password` |
+
+---
+
+## 🐘 Alternative Database Setup
+
+Looking to use PostgreSQL and pgAdmin 4 instead of MySQL and phpMyAdmin? Check out the dedicated guide:
+👉 **[docs/POSTGRESQL_ALTERNATIVE.md](POSTGRESQL_ALTERNATIVE.md)**
+
